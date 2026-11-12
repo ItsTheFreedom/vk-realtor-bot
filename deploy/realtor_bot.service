@@ -1,0 +1,21 @@
+[Unit]
+Description=VK Realtor Client Bot (VK + Bitrix24 + Yandex Sheets)
+After=network.target
+
+[Service]
+# Пользователь, под которым запущен бот (замените ubuntu/root на вашего пользователя при необходимости)
+User=root
+# Рабочая директория (укажите ваш путь на сервере, например /root/Project_Client_Realtor)
+WorkingDirectory=/opt/Project_Client_Realtor
+# Путь к интерпретатору из виртуального окружения
+ExecStart=/opt/Project_Client_Realtor/.venv/bin/python main.py
+# Перезапуск при сбоях через 5 секунд
+Restart=always
+RestartSec=5
+# Переменные окружения (загружаются из файла .env в рабочей директории)
+EnvironmentFile=/opt/Project_Client_Realtor/.env
+StandardOutput=append:/var/log/realtor_bot_stdout.log
+StandardError=append:/var/log/realtor_bot_stderr.log
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  realtor-bot:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    container_name: vk_realtor_bot
+    restart: always
+    env_file:
+      - ../.env
+    volumes:
+      # Сохраняем базу данных сессий и резервный файл Excel на хосте, чтобы при перезапуске они не терялись
+      - ../sessions.db:/app/sessions.db
+      - ../realtor_clients_backup.xlsx:/app/realtor_clients_backup.xlsx
+      - ../realtor_clients_backup.csv:/app/realtor_clients_backup.csv
+      - ../logs:/app/logs
